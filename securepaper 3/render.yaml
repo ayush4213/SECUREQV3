@@ -1,0 +1,19 @@
+# Deploy this service against the same persistent disk as your existing
+# SecurePaper service. Do not create a new disk if you need the live question bank.
+services:
+  - type: web
+    name: securepaper-v3
+    runtime: docker
+    plan: starter
+    healthCheckPath: /api/health
+    envVars:
+      - key: SECUREPAPER_DATA_DIR
+        value: /var/data
+      - key: SECUREPAPER_TEACHER_EMAIL
+        value: teacher@securepaper.local
+      - key: SECUREPAPER_TEACHER_PASSWORD
+        generateValue: true
+    disk:
+      name: securepaper-db
+      mountPath: /var/data
+      sizeGB: 1

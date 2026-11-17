@@ -1,0 +1,14 @@
+services:
+  securepaper:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      SECUREPAPER_DATA_DIR: /app/data
+      SECUREPAPER_TEACHER_EMAIL: ${SECUREPAPER_TEACHER_EMAIL:-teacher@securepaper.local}
+      SECUREPAPER_TEACHER_PASSWORD: ${SECUREPAPER_TEACHER_PASSWORD:?Set SECUREPAPER_TEACHER_PASSWORD in your environment or .env}
+    volumes:
+      - securepaper_data:/app/data
+    restart: unless-stopped
+volumes:
+  securepaper_data:
